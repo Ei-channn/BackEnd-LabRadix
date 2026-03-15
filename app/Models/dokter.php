@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class dokter extends Model
 {
-    //
+    protected $fillable = [
+        'nama_dokter',
+        'spesialis',
+        'no_telp',
+    ];
 }
