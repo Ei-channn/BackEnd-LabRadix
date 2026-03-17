@@ -10,4 +10,12 @@ class jenis_pemeriksaan extends Model
         'nama_jenis',
         'kategori',
     ];
+
+    public function parameterPemeriksaan() {
+        return $this->hasMany(parameter_pemeriksaan::class);
+    }
+
+    public function permintaanPemeriksaan() {
+        return $this->hasMany(permintaan_pemeriksaan::class);
+    }
 }

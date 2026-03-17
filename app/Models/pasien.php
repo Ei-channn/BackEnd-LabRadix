@@ -13,5 +13,9 @@ class pasien extends Model
         'alamat',
         'no_telp',
     ];
+
+    public function permintaanPemeriksaan() {
+        return $this->hasMany(permintaan_pemeriksaan::class);
+    }
     
 }

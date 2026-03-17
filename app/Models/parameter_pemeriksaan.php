@@ -13,4 +13,12 @@ class parameter_pemeriksaan extends Model
         'nilai_normal_max',
         'satuan',
     ];
+
+    public function jenisPemeriksaan() {
+        return $this->belongsTo(jenis_pemeriksaan::class);
+    }
+
+    public function hasilPemeriksaan() {
+        return $this->hasMany(hasil_pemeriksaan::class);
+    }
 }

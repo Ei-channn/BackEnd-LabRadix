@@ -13,4 +13,20 @@ class permintaan_pemeriksaan extends Model
         'tangaal_permintaan',
         'status_pemeriksaan',
     ];
+
+    public function dokter() {
+        return $this->belongsTo(dokter::class);
+    }
+
+    public function pasien() {
+        return $this->belongsTo(pasien::class);
+    }
+
+    public function jenisPemeriksaan() {
+        return $this->belongsTo(jenis_pemeriksaan::class);
+    }
+
+    public function hasilPemeriksaan() {
+        return $this->hasMany(hasil_pemeriksaan::class);
+    }
 }

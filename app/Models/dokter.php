@@ -11,4 +11,8 @@ class dokter extends Model
         'spesialis',
         'no_telp',
     ];
+
+    public function permintaanPemeriksaan() {
+        return $this->hasMany(permintaan_pemeriksaan::class);
+    }
 }
