@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pasien');
             $table->date('tanggal_lahir');
-            $table->string('jenis_kelamin');
+            $table->enum('jenis_kelamin', ['laki_laki', 'perempuan']);
             $table->string('alamat');
             $table->string('no_telp');
             $table->timestamps();

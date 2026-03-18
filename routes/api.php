@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DokterController;
+use App\Http\Controllers\Api\PasienController;
+use App\Http\Controllers\Api\JenisController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -12,3 +15,6 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
+Route::apiResource('dokter', DokterController::class)->middleware('auth:sanctum');
+Route::apiResource('pasien', PasienController::class)->middleware('auth:sanctum');
+Route::apiResource('jenis', JenisController::class)->middleware('auth:sanctum');
