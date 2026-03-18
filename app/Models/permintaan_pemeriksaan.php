@@ -10,20 +10,20 @@ class permintaan_pemeriksaan extends Model
         'id_pasien',
         'id_dokter',
         'id_jenis',
-        'tangaal_permintaan',
+        'tanggal_permintaan',
         'status_pemeriksaan',
     ];
 
     public function dokter() {
-        return $this->belongsTo(dokter::class);
+        return $this->belongsTo(dokter::class, 'id_dokter');
     }
 
     public function pasien() {
-        return $this->belongsTo(pasien::class);
+        return $this->belongsTo(pasien::class, 'id_pasien');
     }
 
     public function jenisPemeriksaan() {
-        return $this->belongsTo(jenis_pemeriksaan::class);
+        return $this->belongsTo(jenis_pemeriksaan::class, 'id_jenis');
     }
 
     public function hasilPemeriksaan() {

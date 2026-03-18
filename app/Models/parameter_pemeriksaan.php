@@ -15,7 +15,7 @@ class parameter_pemeriksaan extends Model
     ];
 
     public function jenisPemeriksaan() {
-        return $this->belongsTo(jenis_pemeriksaan::class);
+        return $this->belongsTo(jenis_pemeriksaan::class, 'id_jenis');
     }
 
     public function hasilPemeriksaan() {

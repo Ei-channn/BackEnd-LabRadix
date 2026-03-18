@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ApiResource;
 use Illuminate\Http\Request;
 use App\Models\pasien;
+use App\Http\Resources\ApiResource;
 use Illuminate\Support\Facades\Validator;
 
 class PasienController extends Controller
@@ -56,11 +56,11 @@ class PasienController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nama_pasien' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date|max:255',
-            'jenis_kelamin' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'no_telp' => 'required|string|max:20',
+            'nama_pasien' => 'nullable|string|max:255',
+            'tanggal_lahir' => 'nullable|date|max:255',
+            'jenis_kelamin' => 'nullable|string|max:255',
+            'alamat' => 'nullable|string|max:255',
+            'no_telp' => 'nullable|string|max:20',
         ]);
 
         if($validator->fails()) {

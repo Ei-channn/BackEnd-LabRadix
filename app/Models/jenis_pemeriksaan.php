@@ -12,7 +12,7 @@ class jenis_pemeriksaan extends Model
     ];
 
     public function parameterPemeriksaan() {
-        return $this->hasMany(parameter_pemeriksaan::class);
+        return $this->hasMany(parameter_pemeriksaan::class, 'id_jenis');
     }
 
     public function permintaanPemeriksaan() {

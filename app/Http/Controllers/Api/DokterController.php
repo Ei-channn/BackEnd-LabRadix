@@ -56,9 +56,9 @@ class DokterController extends Controller
         $dokter = $user->dokter;
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'spesialis' => 'required|string|max:255',
-            'no_telp' => 'required|string|max:20',
+            'name' => 'nullable|string|max:255',
+            'spesialis' => 'nullable|string|max:255',
+            'no_telp' => 'nullable|string|max:20',
         ]);
 
         if($validator->fails()) {

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class JenisController extends Controller
 {
     public function index() {
-        $jenis = jenis_pemeriksaan::paginate(10);
+        $jenis = jenis_pemeriksaan::with('parameterPemeriksaan')->paginate(10);
 
         if($jenis->isEmpty()) {
             return new ApiResource(null, false, 'Data Tidak Ada', 404);
@@ -53,8 +53,8 @@ class JenisController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nama_jenis' => 'required|string|max:255',
-            'kategori' => 'required|string|max:255',
+            'nama_jenis' => 'nullable|string|max:255',
+            'kategori' => 'nullable|string|max:255',
         ]);
 
         if($validator->fails()) {

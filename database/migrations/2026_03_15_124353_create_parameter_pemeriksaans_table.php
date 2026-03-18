@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_parameter');
             $table->foreignId('id_jenis')->constrained('jenis_pemeriksaans')->cascadeOnDelete();
-            $table->integer('nilai_normal_min');
-            $table->integer('nilai_normal_max');
+            $table->decimal('nilai_normal_min', 8, 2);
+            $table->decimal('nilai_normal_max', 8, 2);
             $table->string('satuan');
             $table->timestamps();
         });
