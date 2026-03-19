@@ -18,6 +18,10 @@ class hasil_pemeriksaan extends Model
     }
 
     public function permintaanPemeriksaan() {
-        return $this->belongsTo(permintaan_pemeriksaan::class);
+        return $this->belongsTo(permintaan_pemeriksaan::class, 'id_permintaan');
+    }
+
+    public function parameterPemeriksaan() {
+        return $this->belongsTo(parameter_pemeriksaan::class, 'id_parameter');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\PasienController;
 use App\Http\Controllers\Api\JenisController;
 use App\Http\Controllers\Api\ParameterController;
 use App\Http\Controllers\Api\PermintaanController;
+use App\Http\Controllers\Api\HasilController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -22,3 +23,4 @@ Route::apiResource('pasien', PasienController::class)->middleware('auth:sanctum'
 Route::apiResource('jenis', JenisController::class)->middleware('auth:sanctum');
 Route::apiResource('parameter', ParameterController::class)->middleware('auth:sanctum');
 Route::apiResource('permintaan', PermintaanController::class)->middleware('auth:sanctum');
+Route::apiResource('hasil', HasilController::class)->middleware('auth:sanctum');

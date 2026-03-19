@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_permintaan')->constrained('permintaan_pemeriksaans')->cascadeOnDelete();
             $table->foreignId('id_parameter')->constrained('parameter_pemeriksaans')->cascadeOnDelete();
             $table->decimal('nilai_hasil', 8, 2);
-            $table->enum('status', ['normal', 'abnormal', 'kritis'])->default('normal');
+            $table->enum('status', ['normal', 'rendah', 'tinggi'])->default('normal');
             $table->timestamps();
         });
     }
