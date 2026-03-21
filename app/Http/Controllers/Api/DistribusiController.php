@@ -52,11 +52,11 @@ class DistribusiController extends Controller
         $distribusi = distribusi_hasil::find($id);
 
         $validator = Validator::make($request->all(), [
-            'id_hasil' => 'required|exists:hasil_pemeriksaans,id',
-            'tanggal_kirim' => 'required|date',
-            'dikirim_ke_dokter' => 'required|boolean',
-            'dikirim_ke_pasien' => 'required|boolean',
-            'metode_pengiriman' => 'required|string'
+            'id_hasil' => 'nullable|exists:hasil_pemeriksaans,id',
+            'tanggal_kirim' => 'nullable|date',
+            'dikirim_ke_dokter' => 'nullable|boolean',
+            'dikirim_ke_pasien' => 'nullable|boolean',
+            'metode_pengiriman' => 'nullable|string'
         ]);
 
         if($validator->fails()) {

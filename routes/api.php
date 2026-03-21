@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DokterController;
+use App\Http\Controllers\Api\labController;
 use App\Http\Controllers\Api\PasienController;
 use App\Http\Controllers\Api\JenisController;
 use App\Http\Controllers\Api\ParameterController;
@@ -20,6 +21,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::apiResource('dokter', DokterController::class)->middleware('auth:sanctum');
+Route::apiResource('lab', labController::class)->middleware('auth:sanctum');
 Route::apiResource('pasien', PasienController::class)->middleware('auth:sanctum');
 Route::apiResource('jenis', JenisController::class)->middleware('auth:sanctum');
 Route::apiResource('parameter', ParameterController::class)->middleware('auth:sanctum');
