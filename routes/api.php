@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\JenisController;
 use App\Http\Controllers\Api\ParameterController;
 use App\Http\Controllers\Api\PermintaanController;
 use App\Http\Controllers\Api\HasilController;
+use App\Http\Controllers\Api\DistribusiController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -24,3 +25,4 @@ Route::apiResource('jenis', JenisController::class)->middleware('auth:sanctum');
 Route::apiResource('parameter', ParameterController::class)->middleware('auth:sanctum');
 Route::apiResource('permintaan', PermintaanController::class)->middleware('auth:sanctum');
 Route::apiResource('hasil', HasilController::class)->middleware('auth:sanctum');
+Route::apiResource('distribusi', DistribusiController::class)->middleware('auth:sanctum');

@@ -15,6 +15,6 @@ class distribusi_hasil extends Model
     ];
 
     public function hasilPemeriksaan() {
-        return $this->belongsTo(hasil_pemeriksaan::class);
+        return $this->belongsTo(hasil_pemeriksaan::class, "id_hasil");
     }
 } 

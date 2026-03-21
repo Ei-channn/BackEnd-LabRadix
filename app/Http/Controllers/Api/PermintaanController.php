@@ -5,13 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\permintaan_pemeriksaan;
+use App\Models\dokter;
 use App\Http\Resources\ApiResource;
 use Illuminate\Support\Facades\Validator;
 
 class PermintaanController extends Controller
 {
     public function index() {
-        $permintaan = permintaan_pemeriksaan::with('dokter.user', 'pasien', 'jenisPemeriksaan.parameterPemeriksaan')->paginate(10);
+        $permintaan = permintaan_pemeriksaan::with('dokter.user',
+                                                   'pasien',
+                                                   'jenisPemeriksaan.parameterPemeriksaan'
+                                            )->paginate(10);
 
         if($permintaan->isEmpty()) {
             return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);
@@ -32,19 +36,24 @@ class PermintaanController extends Controller
             return new ApiResource($validator->errors(), false, 'Validasi gagal', 422);
         }
 
+        $dokter = Dokter::where('user_id', auth()->user()->id)->first();
+
         $permintaan = permintaan_pemeriksaan::create([
             'id_pasien' => $request->id_pasien,
-            'id_dokter' => auth()->id(),
+            'id_dokter' => $dokter->id,
             'id_jenis' => $request->id_jenis,
             'tanggal_permintaan' => $request->tanggal_permintaan,
             'status_pemeriksaan' => $request->status_pemeriksaan,
         ]);
 
         return new ApiResource($permintaan, true, 'Data Berhasil Ditambahkan');
-    }
+    }   
 
     public function show($id) {
-        $permintaan = permintaan_pemeriksaan::with('dokter', 'pasien', 'jenisPemeriksaan.parameterPemeriksaan')->find($id);
+        $permintaan = permintaan_pemeriksaan::with('dokter',
+                                                   'pasien', 
+                                                   'jenisPemeriksaan.parameterPemeriksaan'
+                                            )->find($id);
 
         if(!$permintaan) {
             return new ApiResource(null, false, 'Data Tidak Ditemukan');

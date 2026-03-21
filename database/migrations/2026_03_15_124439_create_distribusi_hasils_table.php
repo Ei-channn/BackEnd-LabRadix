@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_hasil')->constrained('hasil_pemeriksaans')->cascadeOnDelete();
             $table->date('tanggal_kirim');
-            $table->enum('dikirim_ke_dokter', ['sudah', 'belum'])->default('belum');
-            $table->enum('dikirim_ke_pasien', ['sudah', 'belum'])->default('belum');
+            $table->boolean('dikirim_ke_dokter')->default(false);
+            $table->boolean('dikirim_ke_pasien')->default(false);
             $table->enum('metode_pengiriman', ['WA', 'email', 'tele']);
             $table->timestamps();
         });
