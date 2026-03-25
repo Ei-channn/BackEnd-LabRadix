@@ -9,6 +9,7 @@ class hasil_pemeriksaan extends Model
     protected $fillable = [
         'id_permintaan',
         'id_parameter',
+        'id_petugas',
         'nilai_hasil',
         'status',
     ];
@@ -23,5 +24,9 @@ class hasil_pemeriksaan extends Model
 
     public function parameterPemeriksaan() {
         return $this->belongsTo(parameter_pemeriksaan::class, 'id_parameter');
+    }
+
+    public function petugasLab() {
+        return $this->belongsTo(petugas_lab::class, "id_petugas");
     }
 }

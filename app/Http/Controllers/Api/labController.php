@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class labController extends Controller
 {
     public function index() {
-        $petugas = petugas_lab::with('user')->paginate(10);
+        $petugas = petugas_lab::with('user  ')->paginate(10);
 
         if($petugas->isEmpty()) {
             return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);

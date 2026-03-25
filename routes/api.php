@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\ParameterController;
 use App\Http\Controllers\Api\PermintaanController;
 use App\Http\Controllers\Api\HasilController;
 use App\Http\Controllers\Api\DistribusiController;
+use App\Http\Controllers\Api\StatusController;
+use App\Http\Controllers\Api\StatistikController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -28,3 +30,6 @@ Route::apiResource('parameter', ParameterController::class)->middleware('auth:sa
 Route::apiResource('permintaan', PermintaanController::class)->middleware('auth:sanctum');
 Route::apiResource('hasil', HasilController::class)->middleware('auth:sanctum');
 Route::apiResource('distribusi', DistribusiController::class)->middleware('auth:sanctum');
+Route::get('/status', [StatusController::class, 'statusCount'])->middleware('auth:sanctum');
+Route::get('/statusKritis', [StatusController::class, 'statusKritis'])->middleware('auth:sanctum');
+Route::get('/statistik', [StatistikController::class, 'statistikPermintaan'])->middleware('auth:sanctum');

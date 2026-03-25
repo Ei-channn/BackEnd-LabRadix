@@ -8,6 +8,7 @@ class distribusi_hasil extends Model
 {
     protected $fillable = [
         'id_hasil',
+        'id_petugas',
         'tanggal_kirim',
         'dikirim_ke_dokter',
         'dikirim_ke_pasien',

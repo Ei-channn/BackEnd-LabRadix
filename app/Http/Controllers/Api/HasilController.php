@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\hasil_pemeriksaan;
+use App\Models\petugas_lab;
 use App\Http\Resources\ApiResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,12 @@ class HasilController extends Controller
             ->where('id_jenis', $permintaan->id_jenis)
             ->count();
 
+        DB::table('permintaan_pemeriksaans')
+            ->where('id', $request->id_permintaan)
+            ->update([
+                'status_pemeriksaan' => 'selesai'
+            ]);
+
         if(count($request->hasil) != $totalParameter){
             return new ApiResource(null, false, 'Jumlah parameter tidak lengkap', 422);
         }
@@ -63,23 +70,32 @@ class HasilController extends Controller
                     ->where('id',$data['id_parameter'])
                     ->first();
 
+                $petugas = petugas_lab::where('user_id', auth()->user()->id)->first();
+
                 $status = 'normal';
 
-                if($data['nilai_hasil'] < $parameter->nilai_normal_min){
+                $nilai = $data['nilai_hasil'];
+
+                $min = $parameter->nilai_normal_min;
+                $max = $parameter->nilai_normal_max;
+
+                $kritisMin = $min * 0.5;
+                $kritisMax = $max * 1.5;
+
+                if($nilai < $kritisMin){
+                    $status = 'kritis';
+                }elseif($nilai > $kritisMax){
+                    $status = 'kritis';
+                }elseif($nilai < $min){
                     $status = 'rendah';
-                }elseif($data['nilai_hasil'] > $parameter->nilai_normal_max){
+                }elseif($nilai > $max){
                     $status = 'tinggi';
                 }
-
-                DB::table('permintaan_pemeriksaans')
-                    ->where('id', $request->id_permintaan)
-                    ->update([
-                        'status_pemeriksaan' => 'selesai'
-                    ]);
 
                 $hasil = hasil_pemeriksaan::create([
                     'id_permintaan' => $request->id_permintaan,
                     'id_parameter' => $data['id_parameter'],
+                    'id_petugas' => $petugas->id,
                     'nilai_hasil' => $data['nilai_hasil'],
                     'status' => $status
                 ]);

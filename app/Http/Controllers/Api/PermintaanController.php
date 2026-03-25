@@ -80,15 +80,30 @@ class PermintaanController extends Controller
             return new ApiResource($validator->errors(), false, 'Validasi gagal', 422);
         }
 
+        $dokter = Dokter::where('user_id', auth()->user()->id)->first();
+
         $permintaan->update([
             'id_pasien' => $request->id_pasien ?? $permintaan->id_pasien,
-            'id_dokter' => auth()->id(),
+            'id_dokter' => $dokter->id,
             'id_jenis' => $request->id_jenis ?? $permintaan->id_jenis,
             'tanggal_permintaan' => $request->tanggal_permintaan ?? $permintaan->tanggal_permintaan,
             'status_pemeriksaan' => $request->status_pemeriksaan ?? $permintaan->status_pemeriksaan,
         ]);
 
         return new ApiResource($permintaan, true, 'Data Berhasil Diupdate');
+    }
+
+    public function statusCount()
+    {
+        $status = DB::table('permintaan_pemeriksaans')
+            ->select('status_pemeriksaan', DB::raw('count(*) as total'))
+            ->groupBy('status_pemeriksaan')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $status
+        ]);
     }
 
     public function destroy($id) {
