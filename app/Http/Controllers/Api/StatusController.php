@@ -8,16 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class StatusController extends Controller
 {
-    public function statusCount()
+    public function statusPermintaan()
     {
-        $status = DB::table('permintaan_pemeriksaans')
-            ->select('status_pemeriksaan', DB::raw('count(*) as total'))
-            ->groupBy('status_pemeriksaan')
-            ->get();
-
         return response()->json([
-            'success' => true,
-            'data' => $status
+            'antri' => DB::table('permintaan_pemeriksaans')->where('status_pemeriksaan','antri')->count(),
+            'proses' => DB::table('permintaan_pemeriksaans')->where('status_pemeriksaan','proses')->count(),
+            'selesai' => DB::table('permintaan_pemeriksaans')->where('status_pemeriksaan','selesai')->count(),
         ]);
     }
 
