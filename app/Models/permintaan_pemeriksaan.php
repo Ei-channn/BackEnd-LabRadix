@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class permintaan_pemeriksaan extends Model
 {
     protected $fillable = [
+        'no_permintaan',
         'id_pasien',
         'id_dokter',
         'id_jenis',
@@ -29,4 +30,9 @@ class permintaan_pemeriksaan extends Model
     public function hasilPemeriksaan() {
         return $this->hasMany(hasil_pemeriksaan::class);
     }
+
+    public function distribusiHasil() {
+        return $this->hasMany(distribusi_hasil::class);
+    }
+
 }

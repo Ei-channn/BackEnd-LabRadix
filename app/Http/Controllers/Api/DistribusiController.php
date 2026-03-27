@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class DistribusiController extends Controller
 {
     public function index() {
-        $distribusi = distribusi_hasil::with('hasilPemeriksaan.permintaanPemeriksaan.pasien',
-                                             'hasilPemeriksaan.permintaanPemeriksaan.dokter',
-                                             'hasilPemeriksaan.permintaanPemeriksaan.jenisPemeriksaan',
-                                        )->paginate(10);
+        $distribusi = distribusi_hasil::with('petugasLab')->paginate(10);
 
         if($distribusi->isEmpty()) {
             return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);
@@ -26,7 +23,7 @@ class DistribusiController extends Controller
 
     public function store(Request $request) {
        $validator = Validator::make($request->all(), [
-            'id_hasil' => 'required|exists:hasil_pemeriksaans,id',
+            'id_permintaan' => 'required|exists:permintaan_pemeriksaans,id',
             'tanggal_kirim' => 'required|date',
             'dikirim_ke_dokter' => 'required|boolean',
             'dikirim_ke_pasien' => 'required|boolean',
@@ -40,7 +37,7 @@ class DistribusiController extends Controller
        $petugas = petugas_lab::where('user_id', auth()->user()->id)->first();
 
        $distribusi = distribusi_hasil::create([
-            'id_hasil' => $request->id_hasil,
+            'id_permintaan' => $request->id_permintaan,
             'id_petugas' => $petugas->id,
             'tanggal_kirim' => $request->tanggal_kirim,
             'dikirim_ke_dokter' => $request->dikirim_ke_dokter,
@@ -65,7 +62,7 @@ class DistribusiController extends Controller
         $distribusi = distribusi_hasil::find($id);
 
         $validator = Validator::make($request->all(), [
-            'id_hasil' => 'nullable|exists:hasil_pemeriksaans,id',
+            'id_permintaan' => 'nullable|exists:permintaan_pemeriksaans,id',
             'tanggal_kirim' => 'nullable|date',
             'dikirim_ke_dokter' => 'nullable|boolean',
             'dikirim_ke_pasien' => 'nullable|boolean',
@@ -79,7 +76,7 @@ class DistribusiController extends Controller
         $petugas = petugas_lab::where('user_id', auth()->user()->id)->first();
 
         $distribusi->update([
-            'id_hasil' => $request->id_hasil ?? $distribusi->id_hasil,
+            'id_permintaan' => $request->id_permintaan ?? $distribusi->id_permintaan,
             'id_petugas' => $petugas->id,
             'tanggal_kirim' => $request->tanggal_kirim ?? $distribusi->tanggal_kirim,
             'dikirim_ke_dokter' => $request->dikirim_ke_dokter ?? $distribusi->dikirim_ke_dokter,

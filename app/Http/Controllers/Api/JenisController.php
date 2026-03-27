@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class JenisController extends Controller
 {
     public function index() {
-        $jenis = jenis_pemeriksaan::with('parameterPemeriksaan')->paginate(10);
+        $jenis = jenis_pemeriksaan::withCount('parameterPemeriksaan')->paginate(10);
 
         if($jenis->isEmpty()) {
             return new ApiResource(null, false, 'Data Tidak Ada', 404);

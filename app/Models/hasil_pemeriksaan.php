@@ -14,10 +14,6 @@ class hasil_pemeriksaan extends Model
         'status',
     ];
 
-    public function distribusiHasil() {
-        return $this->hasMany(distribusi_hasil::class);
-    }
-
     public function permintaanPemeriksaan() {
         return $this->belongsTo(permintaan_pemeriksaan::class, 'id_permintaan');
     }

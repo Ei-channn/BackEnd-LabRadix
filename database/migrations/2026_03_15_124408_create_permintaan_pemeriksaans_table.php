@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('permintaan_pemeriksaans', function (Blueprint $table) {
             $table->id();
+            $table->string('no_permintaan');
             $table->foreignId('id_pasien')->constrained('pasiens')->cascadeOnDelete();
             $table->foreignId('id_dokter')->constrained('dokters')->cascadeOnDelete();
             $table->foreignId('id_jenis')->constrained('jenis_pemeriksaans')->cascadeOnDelete();
