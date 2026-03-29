@@ -24,10 +24,19 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'no_telp',
     ];
 
     public function dokter() {
         return $this->hasOne(dokter::class);
+    }
+
+    public function hasilPemeriksaan() {
+        return $this->hasMany(hasil_pemeriksaan::class);
+    }
+
+    public function distribusiHasil() {
+        return $this->hasMany(distribusi_hasil::class);
     }
 
     /**

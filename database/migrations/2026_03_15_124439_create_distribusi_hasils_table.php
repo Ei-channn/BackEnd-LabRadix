@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('distribusi_hasils', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_permintaan')->constrained('permintaan_pemeriksaans')->cascadeOnDelete();
-            $table->foreignId('id_petugas')->constrained('petugas_labs')->cascadeOnDelete();
+            $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
             $table->date('tanggal_kirim');
             $table->boolean('dikirim_ke_dokter')->default(false);
             $table->boolean('dikirim_ke_pasien')->default(false);

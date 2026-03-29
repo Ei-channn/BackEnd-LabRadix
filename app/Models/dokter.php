@@ -8,9 +8,7 @@ class dokter extends Model
 {
     protected $fillable = [
         'user_id',
-        'nama_dokter',
-        'spesialis',
-        'no_telp',
+        'id_spesialis',
     ];
 
     public function permintaanPemeriksaan() {
@@ -18,6 +16,10 @@ class dokter extends Model
     }
 
     public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function spesialis() {
         return $this->belongsTo(User::class);
     }
 }

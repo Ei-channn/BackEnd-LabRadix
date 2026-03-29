@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => 'admin123',
             'role' => 'admin',
+            'no_telp' => '0987654321',
         ]);
 
         User::factory()->create([
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
             'email' => 'dokter@gmail.com',
             'password' => 'dokter123',
             'role' => 'dokter',
+            'no_telp' => '0987654321',
         ]);
 
         User::factory()->create([
@@ -32,6 +34,7 @@ class UserSeeder extends Seeder
             'email' => 'lab@gmail.com',
             'password' => 'petugaslab',
             'role' => 'petugas_lab',
+            'no_telp' => '0987654321',
         ]);
     }
 }

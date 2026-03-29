@@ -20,7 +20,7 @@ class StatistikController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
+            'data' => [ 
                 'total_permintaan' => $total,
                 'per_kategori' => $kategori
             ]

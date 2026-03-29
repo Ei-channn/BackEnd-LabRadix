@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class DokterController extends Controller
 {
     public function index() {
-        $dokter = dokter::paginate(10);
+        $dokter = dokter::with('user')->paginate(10);
 
         if ($dokter->isEmpty()){
             return new ApiResource(null, false, 'Tidak ada Data', 404);
@@ -22,8 +22,8 @@ class DokterController extends Controller
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'spesialis' => 'required|string|max:255',
-            'no_telp' => 'required|string|max:20',
+            'user_id' => 'required|exists:users,id',
+            'id_spesialis' => 'required|exists:spesialis,id',
         ]);
 
         if($validator->fails()) {
@@ -31,10 +31,8 @@ class DokterController extends Controller
         }
 
         $dokter = dokter::create([
-            'user_id' => auth()->id(),
-            'nama_dokter' => auth()->user()->name,
-            'spesialis' => $request->spesialis,
-            'no_telp' => $request->no_telp,
+            'user_id' => $request->user_id,
+            'id_spesialis' => $request->id_spesialis,
         ]);
 
         return new ApiResource($dokter, true, 'Data Berhasil Ditambahkan', 201);
@@ -51,28 +49,19 @@ class DokterController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $user = auth()->user();
 
-        $dokter = $user->dokter;
+        $dokter = dokter::find($id);
 
         $validator = Validator::make($request->all(), [
-            'name' => 'nullable|string|max:255',
-            'spesialis' => 'nullable|string|max:255',
-            'no_telp' => 'nullable|string|max:20',
+            'id_spesialis' => 'nullable||exists:spesialis,id',
         ]);
 
         if($validator->fails()) {
             return new ApiResource($validator->errors(), false, 'Validasi gagal', 422);
         }
 
-        $user->update([
-            'name' => $request->name ?? $user->name,
-        ]);
-
         $dokter->update([
-            'nama_dokter' => $request->name,
-            'spesialis' => $request->spesialis ?? $dokter->spesialis,
-            'no_telp' => $request->no_telp ?? $dokter->no_telp,
+            'id_spesialis' => $request->id_spesialis ?? $dokter->id_spesialis,
         ]);
 
         return new ApiResource($user->dokter, true, 'Data Berhasil Diupdate', 200);
