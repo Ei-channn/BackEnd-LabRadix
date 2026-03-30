@@ -20,6 +20,6 @@ class dokter extends Model
     }
 
     public function spesialis() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(spesialis::class, 'id_spesialis');
     }
 }

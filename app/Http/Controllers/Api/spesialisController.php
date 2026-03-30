@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class spesialisController extends Controller
 {
     public function index() {
-        $spesialis = spesialis::paginate(10);
+        $spesialis = spesialis::withCount('dokter')->paginate(10);
 
         if($spesialis->isEmpty()) {
             return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);
@@ -68,6 +68,8 @@ class spesialisController extends Controller
         if(!$spesialis) {
             return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);
         }
+
+        $spesialis->delete();
 
         return new ApiResource(null, true, 'Data Berhasil Dihapus', 200);
     }

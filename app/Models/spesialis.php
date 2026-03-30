@@ -11,6 +11,6 @@ class spesialis extends Model
     ];
 
     public function dokter() {
-        return $this->hasMany(dokter::class);
+        return $this->hasMany(dokter::class, 'id_spesialis');
     }
 }

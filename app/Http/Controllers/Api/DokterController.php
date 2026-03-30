@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class DokterController extends Controller
 {
     public function index() {
-        $dokter = dokter::with('user')->paginate(10);
+        $dokter = dokter::with('user', 'spesialis')->paginate(10);
 
         if ($dokter->isEmpty()){
             return new ApiResource(null, false, 'Tidak ada Data', 404);
@@ -50,10 +50,14 @@ class DokterController extends Controller
 
     public function update(Request $request, $id) {
 
-        $dokter = dokter::find($id);
+        $dokter = Dokter::where('user_id', $id)->first();
+
+        if (!$dokter){
+            return new ApiResource(null, false, 'Tidak ada Data', 404);
+        }
 
         $validator = Validator::make($request->all(), [
-            'id_spesialis' => 'nullable||exists:spesialis,id',
+            'id_spesialis' => 'nullable|exists:spesialis,id',
         ]);
 
         if($validator->fails()) {
@@ -64,7 +68,7 @@ class DokterController extends Controller
             'id_spesialis' => $request->id_spesialis ?? $dokter->id_spesialis,
         ]);
 
-        return new ApiResource($user->dokter, true, 'Data Berhasil Diupdate', 200);
+        return new ApiResource($dokter, true, 'Data Berhasil Diupdate', 200);
     }
 
     public function destroy($id) {

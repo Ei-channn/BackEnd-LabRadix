@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\dokter;
 use App\Http\Resources\ApiResource;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     public function index() {
-        $user = User::paginate(10);
+        $user = User::with('dokter.spesialis')->paginate(10);
 
         if($user->isEmpty()) {
             return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);
@@ -81,15 +82,17 @@ class UserController extends Controller
     }
 
     public function destroy($id) {
-        $user = User::find($id);
+        $dokter = Dokter::where('user_id', $id)->first();
 
-        if(!$user) {
-            return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);
+        if($dokter){
+            $dokter->delete();
         }
 
-        $user->delete();
+        User::destroy($id);
 
-        return new ApiResource(null, true, 'Data Berhasil Dihapus', 200);
+        return response()->json([
+            "message" => "deleted"
+        ]);
     }
 
     public function getUser(Request $request) {

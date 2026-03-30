@@ -37,6 +37,7 @@ Route::get('/status', [StatusController::class, 'statusPermintaan'])->middleware
 Route::get('/statusKritis', [StatusController::class, 'statusKritis'])->middleware('auth:sanctum');
 Route::get('/statistik', [StatistikController::class, 'statistikPermintaan'])->middleware('auth:sanctum');
 Route::get('/user', [UserController::class, 'getUser'])->middleware('auth:sanctum');
+Route::get('/getDokter', [UserController::class, 'getDokter'])->middleware('auth:sanctum');
 Route::get('/userRole', [UserController::class, 'getRole'])->middleware('auth:sanctum');
 Route::get('/laporan', [LaporanController::class, 'index'])->middleware('auth:sanctum');
 
