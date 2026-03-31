@@ -90,4 +90,16 @@ class ParameterController extends Controller
         return new ApiResource(null, true, 'Data Berhasil Dihapus');
     }
 
+    public function getParameter($id) {
+        $parameter = parameter_pemeriksaan::where('id_jenis', $id)->get();
+
+        if(!$parameter) {
+            return new ApiResource(null, false, 'Data Tidak Ditemukan', 404);
+        }
+ 
+        return response()->json([
+            'massage' => true,
+            'data' => $parameter,
+        ]);
+    }
 }

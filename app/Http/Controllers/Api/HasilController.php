@@ -64,13 +64,13 @@ class HasilController extends Controller
 
         DB::transaction(function() use ($request, &$dataHasil){
 
+            $UserId = auth()->user()->id;
+
             foreach($request->hasil as $data){
 
                 $parameter = DB::table('parameter_pemeriksaans')
                     ->where('id',$data['id_parameter'])
                     ->first();
-
-                $petugas = petugas_lab::where('user_id', auth()->user()->id)->first();
 
                 $status = 'normal';
 
@@ -95,7 +95,7 @@ class HasilController extends Controller
                 $hasil = hasil_pemeriksaan::create([
                     'id_permintaan' => $request->id_permintaan,
                     'id_parameter' => $data['id_parameter'],
-                    'id_petugas' => $petugas->id,
+                    'id_user' => $UserId,
                     'nilai_hasil' => $data['nilai_hasil'],
                     'status' => $status
                 ]);

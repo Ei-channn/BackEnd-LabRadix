@@ -8,7 +8,7 @@ class distribusi_hasil extends Model
 {
     protected $fillable = [
         'id_permintaan',
-        'id_petugas',
+        'id_user',
         'tanggal_kirim',
         'dikirim_ke_dokter',
         'dikirim_ke_pasien',
@@ -19,7 +19,7 @@ class distribusi_hasil extends Model
         return $this->belongsTo(permintaan_pemeriksaan::class, 'id_permintaan');
     }
 
-    public function petugasLab() {
-        return $this->belongsTo(petugas_lab::class, "id_petugas");
+    public function user() {
+        return $this->belongsTo(User::class, "id_user");
     }
 } 
