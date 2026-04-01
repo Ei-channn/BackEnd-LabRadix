@@ -16,9 +16,8 @@ return new class extends Migration
             $table->foreignId('id_permintaan')->constrained('permintaan_pemeriksaans')->cascadeOnDelete();
             $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
             $table->date('tanggal_kirim');
-            $table->boolean('dikirim_ke_dokter')->default(false);
-            $table->boolean('dikirim_ke_pasien')->default(false);
-            $table->enum('metode_pengiriman', ['WA', 'email', 'tele']);
+            $table->boolean('kirim_ke_pasien')->default(false);
+            $table->enum('metode_pengiriman', ['pdf', 'cetak', 'telegram']);
             $table->timestamps();
         });
     }

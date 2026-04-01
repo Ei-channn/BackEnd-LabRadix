@@ -28,7 +28,7 @@ class permintaan_pemeriksaan extends Model
     }
 
     public function hasilPemeriksaan() {
-        return $this->hasMany(hasil_pemeriksaan::class);
+        return $this->hasMany(hasil_pemeriksaan::class, 'id_permintaan');
     }
 
     public function distribusiHasil() {

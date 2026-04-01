@@ -14,7 +14,8 @@ class PermintaanController extends Controller
     public function index() {
         $permintaan = permintaan_pemeriksaan::with('dokter.user',
                                                    'pasien',
-                                                   'jenisPemeriksaan.parameterPemeriksaan'
+                                                   'jenisPemeriksaan.parameterPemeriksaan',
+                                                   'hasilPemeriksaan.parameterPemeriksaan',
                                             )->paginate(10);
 
         if($permintaan->isEmpty()) {
@@ -39,7 +40,7 @@ class PermintaanController extends Controller
         $dokter = Dokter::where('user_id', auth()->user()->id)->first();
 
         $permintaan = permintaan_pemeriksaan::create([
-            'no_permintaan' => 'RTX-' . substr(uniqid(), -6),
+            'no_permintaan' => 'RTX-' . substr(uniqid(), -5),
             'id_pasien' => $request->id_pasien,
             'id_dokter' => $dokter->id,
             'id_jenis' => $request->id_jenis,
@@ -81,7 +82,7 @@ class PermintaanController extends Controller
             return new ApiResource($validator->errors(), false, 'Validasi gagal', 422);
         }
 
-        $dokter = Dokter::where('user_id', auth()->user()->id)->first();
+        $dokter = dokter::where('user_id', auth()->user()->id)->first();
 
         $permintaan->update([
             'id_pasien' => $request->id_pasien ?? $permintaan->id_pasien,

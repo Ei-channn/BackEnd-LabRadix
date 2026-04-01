@@ -27,6 +27,7 @@ class PasienController extends Controller
             'jenis_kelamin' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'no_telp' => 'required|string|max:20',
+            'telegram_chat_id' => 'required|numeric',
         ]);
 
         if($validator->fails()) {
@@ -61,6 +62,7 @@ class PasienController extends Controller
             'jenis_kelamin' => 'nullable|string|max:255',
             'alamat' => 'nullable|string|max:255',
             'no_telp' => 'nullable|string|max:20',
+            'telegram_chat_id' => 'nullable|numeric',
         ]);
 
         if($validator->fails()) {
@@ -73,6 +75,7 @@ class PasienController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin ?? $pasien->jenis_kelamin,
             'alamat' => $request->alamat ?? $pasien->alamat,
             'no_telp' => $request->no_telp ?? $pasien->no_telp,
+            'telegram_chat_id' => $request->telegram_chat_id ?? $pasien->telegram_chat_id,
         ]);
 
         return new ApiResource($pasien, true, 'Data Berhasil Diupdate', 200);

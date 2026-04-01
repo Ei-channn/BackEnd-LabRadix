@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pasien');
             $table->date('tanggal_lahir');
-            $table->enum('jenis_kelamin', ['laki_laki', '   ']);
+            $table->enum('jenis_kelamin', ['laki_laki', 'perempuan']);
             $table->string('alamat');
             $table->string('no_telp');
+            $table->bigInteger('telegram_chat_id');
             $table->timestamps();
         });
     }

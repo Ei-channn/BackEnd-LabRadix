@@ -12,6 +12,7 @@ class pasien extends Model
         'jenis_kelamin',
         'alamat',
         'no_telp',
+        'telegram_chat_id',
     ];
 
     public function permintaanPemeriksaan() {

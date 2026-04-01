@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('id_pasien')->constrained('pasiens')->cascadeOnDelete();
             $table->foreignId('id_dokter')->constrained('dokters')->cascadeOnDelete();
             $table->foreignId('id_jenis')->constrained('jenis_pemeriksaans')->cascadeOnDelete();
-            $table->enum('status_pemeriksaan', ['antri', 'proses', 'selesai'])->default('antri');
+            $table->enum('status_pemeriksaan', ['antri', 'proses', 'selesai', 'arsip'])->default('antri');
             $table->date('tanggal_permintaan');
             $table->timestamps();
         });

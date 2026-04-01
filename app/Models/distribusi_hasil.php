@@ -10,8 +10,7 @@ class distribusi_hasil extends Model
         'id_permintaan',
         'id_user',
         'tanggal_kirim',
-        'dikirim_ke_dokter',
-        'dikirim_ke_pasien',
+        'kirim_ke_pasien',
         'metode_pengiriman',
     ];
 
