@@ -34,7 +34,8 @@ Route::apiResource('permintaan', PermintaanController::class)->middleware('auth:
 Route::apiResource('hasil', HasilController::class)->middleware('auth:sanctum');
 Route::apiResource('distribusi', DistribusiController::class)->middleware('auth:sanctum');
 Route::get('/status', [StatusController::class, 'statusPermintaan'])->middleware('auth:sanctum');
-Route::get('/statusKritis', [StatusController::class, 'statusKritis'])->middleware('auth:sanctum');
+Route::get('/statusPemeriksaan', [StatusController::class, 'statusPemeriksaan'])->middleware('auth:sanctum');
+Route::get('/statusMingguan', [StatusController::class, 'statusMingguan'])->middleware('auth:sanctum');
 Route::get('/statistik', [StatistikController::class, 'statistikPermintaan'])->middleware('auth:sanctum');
 Route::get('/user', [UserController::class, 'getUser'])->middleware('auth:sanctum');
 Route::get('/userRole', [UserController::class, 'getRole'])->middleware('auth:sanctum');
